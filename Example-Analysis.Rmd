@@ -1,0 +1,165 @@
+---
+title: "Untitled"
+author: "Lisa Reiber"
+date: "3/15/2021"
+output:
+  html_document:
+    keep_md: TRUE
+theme: "flatly"
+---
+
+```{r setup, include=FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+pacman::p_load(tidyverse, janitor)
+
+source("helper_functions.R")
+# fs_codebook(c())
+```
+
+```{r}
+language <- c("R", "R", "Python", "Julia", "SQL", NA)
+
+fake_survey <- data.frame(Q2_MC_r = sample(c('Ja','Nicht Gewählt', NA), 500, rep = TRUE),
+                          Q2_MC_python = sample(c('Ja','Nicht Gewählt', NA), 500, rep = TRUE), 
+                          Q2_MC_julia = sample(c('Ja','Nicht Gewählt', NA), 500, rep = TRUE), 
+                          Q2_MC_sql = sample(c('Ja','Nicht Gewählt', NA), 500, rep = TRUE), 
+                          Q1_SC_fav_lang = sample(language, 500, rep = TRUE)
+                          ) %>% 
+  rownames_to_column(var = "id") %>% 
+  mutate(id = as.numeric(id))
+
+```
+
+# Single Choice
+
+Q1: What is your favourite language ?
+
+## Janitor::tabyl
+
+### short
+```{r}
+fake_survey %>% janitor::tabyl(Q1_SC_fav_lang) 
+```
+
+### fancy
+```{r warning = FALSE}
+fake_survey %>% 
+  janitor::tabyl(Q1_SC_fav_lang, show_na = FALSE) %>% 
+  arrange(desc(n)) %>% 
+  janitor::adorn_pct_formatting() %>% 
+  janitor::adorn_title(row_name = "Favourite Language", col_name = "")
+```
+
+## count & mutate
+
+### short
+```{r}
+fake_survey %>% dplyr::count(Q1_SC_fav_lang) 
+```
+
+### fancy
+```{r}
+fake_survey %>% 
+  drop_na(Q1_SC_fav_lang) %>% 
+  count(`Favourite Language` = Q1_SC_fav_lang, name = "Frequency", sort = TRUE) %>% 
+  mutate("Proportion" = round(Frequency / sum(Frequency) * 100, 1),
+         "Prop in Percent" = paste0(Proportion, "%"))
+```
+
+we like it so we turn it into a function...
+
+```{r}
+fake_survey %>% gen_sc_table(type = "fancy")
+
+# same as:
+# fake_survey %>% 
+#  gen_sc_table(sc_var = "Q1_SC_fav_lang", 
+#               sc_label = "Favourite Language", 
+#               type = "fancy")
+```
+
+# Multiple Choice
+
+Q2: Which programming Languages do you know?
+
+As we can see, there are multiple variables for question 2. For each language that participants were able to choose from, one variable was generated.
+
+## R
+```{r}
+fake_survey %>% 
+ gen_sc_table(sc_var = "Q2_MC_r", 
+              sc_label = "Known Language: R", 
+              type = "fancy")
+```
+## Python
+
+```{r}
+fake_survey %>% 
+ gen_sc_table(sc_var = "Q2_MC_python", 
+              sc_label = "Known Language: Python", 
+              type = "fancy")
+```
+
+## How can we compare all of the answers?
+
+### Step1: Select relevant data
+
+How do we select all the relevant questions?
+
+We can identify all questions of an item battery by their stem. And then we can use the tidyselect helpers `tidyselect::starts_with()`
+
+```{r define mc-stem}
+mc_stem_selected <- "Q2_MC_"
+```
+
+```{r}
+mc_selected <- fake_survey %>% 
+  select(id, starts_with(all_of(mc_stem_selected))) 
+```
+
+let's take a look
+### Step2: Reshape to long format
+
+How we 
+```{r}
+mc_long <- mc_selected %>% 
+  pivot_longer(-id)
+```
+```{r}
+mc_long %>% 
+  janitor::tabyl(name, value)
+```
+
+How do I get frequencies?
+
+```{r}
+mc_long %>% 
+  janitor::tabyl(name, value) %>% 
+  adorn_percentages(denominator = "row") %>% 
+  adorn_totals(where = "col") %>% 
+  adorn_ns()
+```
+
+```{r}
+mc_long %>%
+  filter(value == "Ja") %>% 
+  janitor::tabyl(name) %>% 
+  adorn_pct_formatting() %>% 
+  adorn_totals()
+```
+
+What if I want to know the Anteil of peopgle who selected a certain language? 
+
+Your turn :)
+```{r}
+
+```
+
+
+# cut outs
+```{r}
+fav_color <- c('Green', 'Red','Orange','Blue','Purple','Grey','Black','Yellow','White','Lavender')
+```
