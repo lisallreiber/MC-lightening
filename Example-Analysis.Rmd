@@ -1,10 +1,10 @@
 ---
-title: "Untitled"
+title: "How to analyze Multiple Choice Survey Questions"
+subtitle: "CorrelAid X Berlin - Lightening Talk"
 author: "Lisa Reiber"
 output:
   html_document:
     keep_md: TRUE
-theme: "flatly"
 output_dir: "/docs"
 ---
 
