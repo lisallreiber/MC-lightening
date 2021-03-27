@@ -29,7 +29,7 @@ fake_survey <- data.frame(Q2_MC_r = sample(c('Ja','Nicht Gewählt', NA), 500, re
 
 Q1: What is your favourite language ?
 
-## Janitor::tabyl
+## Janitor::tabyl {.tabset}
 
 ### short
 
@@ -65,7 +65,7 @@ fake_survey %>%
 ##                 SQL  77   18.1%
 ```
 
-## count & mutate
+## count & mutate {.tabset}
 
 ### short
 
