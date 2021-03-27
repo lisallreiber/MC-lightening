@@ -5,7 +5,7 @@ output:
   html_document:
     keep_md: TRUE
 theme: "flatly"
-ourput_dir: "/docs"
+output_dir: "/docs"
 ---
 
 
@@ -46,11 +46,11 @@ fake_survey %>% janitor::tabyl(Q1_SC_fav_lang)
 
 ```
 ##  Q1_SC_fav_lang   n percent valid_percent
-##           Julia  71   0.142     0.1748768
-##          Python  86   0.172     0.2118227
-##               R 170   0.340     0.4187192
-##             SQL  79   0.158     0.1945813
-##            <NA>  94   0.188            NA
+##           Julia  77   0.154     0.1859903
+##          Python  88   0.176     0.2125604
+##               R 170   0.340     0.4106280
+##             SQL  79   0.158     0.1908213
+##            <NA>  86   0.172            NA
 ```
 
 ### fancy
@@ -66,10 +66,10 @@ fake_survey %>%
 ```
 ##                                
 ##  Favourite Language   n percent
-##                   R 170   41.9%
-##              Python  86   21.2%
-##                 SQL  79   19.5%
-##               Julia  71   17.5%
+##                   R 170   41.1%
+##              Python  88   21.3%
+##                 SQL  79   19.1%
+##               Julia  77   18.6%
 ```
 
 ## count & mutate
@@ -82,11 +82,11 @@ fake_survey %>% dplyr::count(Q1_SC_fav_lang)
 
 ```
 ##   Q1_SC_fav_lang   n
-## 1          Julia  71
-## 2         Python  86
+## 1          Julia  77
+## 2         Python  88
 ## 3              R 170
 ## 4            SQL  79
-## 5           <NA>  94
+## 5           <NA>  86
 ```
 
 ### fancy
@@ -101,10 +101,10 @@ fake_survey %>%
 
 ```
 ##   Favourite Language Frequency Proportion Prop in Percent
-## 1                  R       170       41.9           41.9%
-## 2             Python        86       21.2           21.2%
-## 3                SQL        79       19.5           19.5%
-## 4              Julia        71       17.5           17.5%
+## 1                  R       170       41.1           41.1%
+## 2             Python        88       21.3           21.3%
+## 3                SQL        79       19.1           19.1%
+## 4              Julia        77       18.6           18.6%
 ```
 
 we like it so we turn it into a function...
@@ -116,10 +116,10 @@ fake_survey %>% gen_sc_table(type = "fancy")
 
 ```
 ##   Favourite Language Frequency Proportion Prop in Percent
-## 1                  R       170       41.9           41.9%
-## 2             Python        86       21.2           21.2%
-## 3                SQL        79       19.5           19.5%
-## 4              Julia        71       17.5           17.5%
+## 1                  R       170       41.1           41.1%
+## 2             Python        88       21.3           21.3%
+## 3                SQL        79       19.1           19.1%
+## 4              Julia        77       18.6           18.6%
 ```
 
 ```r
@@ -147,8 +147,8 @@ fake_survey %>%
 
 ```
 ##   Known Language: R Frequency Proportion Prop in Percent
-## 1                Ja       165       50.8           50.8%
-## 2     Nicht Gewählt       160       49.2           49.2%
+## 1     Nicht Gewählt       183       53.8           53.8%
+## 2                Ja       157       46.2           46.2%
 ```
 ## Python
 
@@ -162,8 +162,8 @@ fake_survey %>%
 
 ```
 ##   Known Language: Python Frequency Proportion Prop in Percent
-## 1          Nicht Gewählt       165       50.6           50.6%
-## 2                     Ja       161       49.4           49.4%
+## 1          Nicht Gewählt       172       51.7           51.7%
+## 2                     Ja       161       48.3           48.3%
 ```
 
 ## How can we compare all of the answers?
@@ -203,10 +203,10 @@ mc_long %>%
 
 ```
 ##          name  Ja Nicht Gewählt NA_
-##   Q2_MC_julia 148           171 181
-##  Q2_MC_python 161           165 174
-##       Q2_MC_r 165           160 175
-##     Q2_MC_sql 180           165 155
+##   Q2_MC_julia 170           175 155
+##  Q2_MC_python 161           172 167
+##       Q2_MC_r 157           183 160
+##     Q2_MC_sql 169           178 153
 ```
 
 How do I get frequencies?
@@ -222,11 +222,11 @@ mc_long %>%
 
 ```
 ##          name              Ja   Nicht Gewählt             NA_
-##   Q2_MC_julia 0.2262997 (148) 0.2586989 (171) 0.2642336 (181)
-##  Q2_MC_python 0.2461774 (161) 0.2496218 (165) 0.2540146 (174)
-##       Q2_MC_r 0.2522936 (165) 0.2420575 (160) 0.2554745 (175)
-##     Q2_MC_sql 0.2752294 (180) 0.2496218 (165) 0.2262774 (155)
-##         Total 1.0000000 (654) 1.0000000 (661) 1.0000000 (685)
+##   Q2_MC_julia 0.2587519 (170) 0.2471751 (175) 0.2440945 (155)
+##  Q2_MC_python 0.2450533 (161) 0.2429379 (172) 0.2629921 (167)
+##       Q2_MC_r 0.2389650 (157) 0.2584746 (183) 0.2519685 (160)
+##     Q2_MC_sql 0.2572298 (169) 0.2514124 (178) 0.2409449 (153)
+##         Total 1.0000000 (657) 1.0000000 (708) 1.0000000 (635)
 ```
 
 
@@ -240,11 +240,11 @@ mc_long %>%
 
 ```
 ##          name   n percent
-##   Q2_MC_julia 148   22.6%
-##  Q2_MC_python 161   24.6%
-##       Q2_MC_r 165   25.2%
-##     Q2_MC_sql 180   27.5%
-##         Total 654       -
+##   Q2_MC_julia 170   25.9%
+##  Q2_MC_python 161   24.5%
+##       Q2_MC_r 157   23.9%
+##     Q2_MC_sql 169   25.7%
+##         Total 657       -
 ```
 
 What if I want to know the Anteil of peopgle who selected a certain language? 

@@ -193,11 +193,11 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
 <h3>short</h3>
 <pre class="r"><code>fake_survey %&gt;% janitor::tabyl(Q1_SC_fav_lang) </code></pre>
 <pre><code>##  Q1_SC_fav_lang   n percent valid_percent
-##           Julia  71   0.142     0.1748768
-##          Python  86   0.172     0.2118227
-##               R 170   0.340     0.4187192
-##             SQL  79   0.158     0.1945813
-##            &lt;NA&gt;  94   0.188            NA</code></pre>
+##           Julia  77   0.154     0.1859903
+##          Python  88   0.176     0.2125604
+##               R 170   0.340     0.4106280
+##             SQL  79   0.158     0.1908213
+##            &lt;NA&gt;  86   0.172            NA</code></pre>
 </div>
 <div id="fancy" class="section level3">
 <h3>fancy</h3>
@@ -208,10 +208,10 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
   janitor::adorn_title(row_name = &quot;Favourite Language&quot;, col_name = &quot;&quot;)</code></pre>
 <pre><code>##                                
 ##  Favourite Language   n percent
-##                   R 170   41.9%
-##              Python  86   21.2%
-##                 SQL  79   19.5%
-##               Julia  71   17.5%</code></pre>
+##                   R 170   41.1%
+##              Python  88   21.3%
+##                 SQL  79   19.1%
+##               Julia  77   18.6%</code></pre>
 </div>
 </div>
 <div id="count-mutate" class="section level2">
@@ -220,11 +220,11 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
 <h3>short</h3>
 <pre class="r"><code>fake_survey %&gt;% dplyr::count(Q1_SC_fav_lang) </code></pre>
 <pre><code>##   Q1_SC_fav_lang   n
-## 1          Julia  71
-## 2         Python  86
+## 1          Julia  77
+## 2         Python  88
 ## 3              R 170
 ## 4            SQL  79
-## 5           &lt;NA&gt;  94</code></pre>
+## 5           &lt;NA&gt;  86</code></pre>
 </div>
 <div id="fancy-1" class="section level3">
 <h3>fancy</h3>
@@ -234,17 +234,17 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
   mutate(&quot;Proportion&quot; = round(Frequency / sum(Frequency) * 100, 1),
          &quot;Prop in Percent&quot; = paste0(Proportion, &quot;%&quot;))</code></pre>
 <pre><code>##   Favourite Language Frequency Proportion Prop in Percent
-## 1                  R       170       41.9           41.9%
-## 2             Python        86       21.2           21.2%
-## 3                SQL        79       19.5           19.5%
-## 4              Julia        71       17.5           17.5%</code></pre>
+## 1                  R       170       41.1           41.1%
+## 2             Python        88       21.3           21.3%
+## 3                SQL        79       19.1           19.1%
+## 4              Julia        77       18.6           18.6%</code></pre>
 <p>we like it so we turn it into a function…</p>
 <pre class="r"><code>fake_survey %&gt;% gen_sc_table(type = &quot;fancy&quot;)</code></pre>
 <pre><code>##   Favourite Language Frequency Proportion Prop in Percent
-## 1                  R       170       41.9           41.9%
-## 2             Python        86       21.2           21.2%
-## 3                SQL        79       19.5           19.5%
-## 4              Julia        71       17.5           17.5%</code></pre>
+## 1                  R       170       41.1           41.1%
+## 2             Python        88       21.3           21.3%
+## 3                SQL        79       19.1           19.1%
+## 4              Julia        77       18.6           18.6%</code></pre>
 <pre class="r"><code># same as:
 # fake_survey %&gt;% 
 #  gen_sc_table(sc_var = &quot;Q1_SC_fav_lang&quot;, 
@@ -264,8 +264,8 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
               sc_label = &quot;Known Language: R&quot;, 
               type = &quot;fancy&quot;)</code></pre>
 <pre><code>##   Known Language: R Frequency Proportion Prop in Percent
-## 1                Ja       165       50.8           50.8%
-## 2     Nicht Gewählt       160       49.2           49.2%</code></pre>
+## 1     Nicht Gewählt       183       53.8           53.8%
+## 2                Ja       157       46.2           46.2%</code></pre>
 </div>
 <div id="python" class="section level2">
 <h2>Python</h2>
@@ -274,8 +274,8 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
               sc_label = &quot;Known Language: Python&quot;, 
               type = &quot;fancy&quot;)</code></pre>
 <pre><code>##   Known Language: Python Frequency Proportion Prop in Percent
-## 1          Nicht Gewählt       165       50.6           50.6%
-## 2                     Ja       161       49.4           49.4%</code></pre>
+## 1          Nicht Gewählt       172       51.7           51.7%
+## 2                     Ja       161       48.3           48.3%</code></pre>
 </div>
 <div id="how-can-we-compare-all-of-the-answers" class="section level2">
 <h2>How can we compare all of the answers?</h2>
@@ -293,10 +293,10 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
 <pre class="r"><code>mc_long %&gt;% 
   janitor::tabyl(name, value)</code></pre>
 <pre><code>##          name  Ja Nicht Gewählt NA_
-##   Q2_MC_julia 148           171 181
-##  Q2_MC_python 161           165 174
-##       Q2_MC_r 165           160 175
-##     Q2_MC_sql 180           165 155</code></pre>
+##   Q2_MC_julia 170           175 155
+##  Q2_MC_python 161           172 167
+##       Q2_MC_r 157           183 160
+##     Q2_MC_sql 169           178 153</code></pre>
 <p>How do I get frequencies?</p>
 <pre class="r"><code>mc_long %&gt;% 
   janitor::tabyl(name, value) %&gt;% 
@@ -304,22 +304,22 @@ fake_survey &lt;- data.frame(Q2_MC_r = sample(c(&#39;Ja&#39;,&#39;Nicht Gewählt
   adorn_totals(where = &quot;row&quot;) %&gt;% 
   adorn_ns()</code></pre>
 <pre><code>##          name              Ja   Nicht Gewählt             NA_
-##   Q2_MC_julia 0.2262997 (148) 0.2586989 (171) 0.2642336 (181)
-##  Q2_MC_python 0.2461774 (161) 0.2496218 (165) 0.2540146 (174)
-##       Q2_MC_r 0.2522936 (165) 0.2420575 (160) 0.2554745 (175)
-##     Q2_MC_sql 0.2752294 (180) 0.2496218 (165) 0.2262774 (155)
-##         Total 1.0000000 (654) 1.0000000 (661) 1.0000000 (685)</code></pre>
+##   Q2_MC_julia 0.2587519 (170) 0.2471751 (175) 0.2440945 (155)
+##  Q2_MC_python 0.2450533 (161) 0.2429379 (172) 0.2629921 (167)
+##       Q2_MC_r 0.2389650 (157) 0.2584746 (183) 0.2519685 (160)
+##     Q2_MC_sql 0.2572298 (169) 0.2514124 (178) 0.2409449 (153)
+##         Total 1.0000000 (657) 1.0000000 (708) 1.0000000 (635)</code></pre>
 <pre class="r"><code>mc_long %&gt;%
   filter(value == &quot;Ja&quot;) %&gt;% 
   janitor::tabyl(name) %&gt;% 
   adorn_pct_formatting() %&gt;% 
   adorn_totals()</code></pre>
 <pre><code>##          name   n percent
-##   Q2_MC_julia 148   22.6%
-##  Q2_MC_python 161   24.6%
-##       Q2_MC_r 165   25.2%
-##     Q2_MC_sql 180   27.5%
-##         Total 654       -</code></pre>
+##   Q2_MC_julia 170   25.9%
+##  Q2_MC_python 161   24.5%
+##       Q2_MC_r 157   23.9%
+##     Q2_MC_sql 169   25.7%
+##         Total 657       -</code></pre>
 <p>What if I want to know the Anteil of peopgle who selected a certain language?</p>
 <p>Your turn :)</p>
 </div>

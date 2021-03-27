@@ -5,7 +5,7 @@ output:
   html_document:
     keep_md: TRUE
 theme: "flatly"
-ourput_dir: "/docs"
+output_dir: "/docs"
 ---
 
 ```{r setup, include=FALSE, warning = FALSE}
