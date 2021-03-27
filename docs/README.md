@@ -1,4 +1,8 @@
-
+How to analyze Multiple Choice Survey Questions
+================================================================
+CorrelAid X Berlin - Lightening Talk  
+Lisa Reiber  
+2021-15-03  
 
 ```r
 pacman::p_load(tidyverse, janitor)
